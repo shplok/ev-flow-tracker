@@ -31,9 +31,9 @@ def csv_to_yolo_annotations(csv_file, output_dir, image_width, image_height, box
                 annotations.append(f"0 {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}")
         else:
             # If there are no particles, add a dummy "background" annotation with some probability
-            
+            if random.random() < add_dummy_prob:
                 # Use class_id "1" for background class
-            annotations.append(f"0 0.5 0.5 0.1 0.1\n")  # TINY BOX
+                annotations.append(f"1 0.1 0.1 0.2 0.2")
 
         # Save annotations to the corresponding .txt file
         frame_filename = f"frame_{frame_num:04d}.txt"  # Format: frame_0001.txt
@@ -44,9 +44,9 @@ def csv_to_yolo_annotations(csv_file, output_dir, image_width, image_height, box
         print(f"Saved annotations for frame {frame_num} to {frame_filepath}")
 
 # Paths to CSV files
-Q1250_z35_mov_1_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\HCC1954REPX_Q1250_z35_mov01.csv" 
-Q1250_z35_mov_2_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\HCC1937_Q1250_z35_mov02.csv" 
-Q750_z40_mov_1_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\MDAMC231_Q750_z40_mov01.csv"
+Q1250_z35_mov_1_csv = r"C:\Users\sawye\Downloads\cvfinalprojdata\EV xslot data for CV\HCC1954REPX_Q1250_z35_mov01.csv"
+Q1250_z35_mov_2_csv = r"C:\Users\sawye\Downloads\cvfinalprojdata\EV xslot data for CV\HCC1937_Q1250_z35_mov02.csv"
+Q750_z40_mov_1_csv = r"C:\Users\sawye\Downloads\cvfinalprojdata\EV xslot data for CV\MDAMC231_Q750_z40_mov01.csv"
 
 # Folder names for output
 csvs = [Q1250_z35_mov_1_csv, Q1250_z35_mov_2_csv, Q750_z40_mov_1_csv]
@@ -59,4 +59,3 @@ for i in range(3):
     image_width = 1200
     image_height = 1200
     csv_to_yolo_annotations(csv_file, folder_name, image_width, image_height)
-    

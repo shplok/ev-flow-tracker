@@ -3,7 +3,7 @@ import os
 import cv2
 import tifffile
 
-def generate_bounding_boxes(frames_dir, csv_file, folder_name, box_size=52, output_dir="frames_with_bboxes", annotations_file="annotations.txt"):
+def generate_bounding_boxes(frames_dir, csv_file, folder_name, box_size=30, output_dir="frames_with_bboxes", annotations_file="annotations.txt"):
     # Load particle CSV data
     particle_data = pd.read_csv(csv_file, names=["id", "x", "y", "frame"])
     
@@ -47,7 +47,7 @@ def generate_bounding_boxes(frames_dir, csv_file, folder_name, box_size=52, outp
                     width = box_size / frame.shape[1]
                     height = box_size / frame.shape[0]
                     
-                    f.write(f"{x_center} {y_center} {width} {height}\n")
+                    f.write(f"{particle_id} {x_center} {y_center} {width} {height}\n")
                 
                 # Save the frame with drawn bounding boxes as a .png or .tif
                 output_frame_path = os.path.join(video_output_dir, f"frame_{frame_num + 1:04d}.png")  # Output as .png or .tif
@@ -56,14 +56,14 @@ def generate_bounding_boxes(frames_dir, csv_file, folder_name, box_size=52, outp
 
 
 # Example paths
-Q1250_z35_mov_1_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\HCC1954REPX_Q1250_z35_mov01.csv"
-Q1250_z35_mov_1_frame_dir = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\xslot_HCC1954REPX_01_1250uLhr_z35um_mov_1_MMStack_Pos0.ome.tif"
+Q1250_z35_mov_1_csv = r"data\EV xslot data for CV\Q1250_z35_mov1_data\HCC1954REPX_Q1250_z35_mov01.csv"
+Q1250_z35_mov_1_frame_dir = r"data\EV xslot data for CV\Q1250_z35_mov1_data\xslot_HCC1954REPX_01_1250uLhr_z35um_mov_1_MMStack_Pos0.ome.tif"
 
-Q1250_z35_mov_2_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\HCC1937_Q1250_z35_mov02.csv"
-Q1250_z35_mov_2_frame_dir = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\xslot_HCC1937_expt01_1250uLhr_z35um_mov_2_MMStack_Pos0.ome.tif"
+Q1250_z35_mov_2_csv = r"data\EV xslot data for CV\Q1250_z35_mov2_data\HCC1937_Q1250_z35_mov02.csv"
+Q1250_z35_mov_2_frame_dir = r"data\EV xslot data for CV\Q1250_z35_mov2_data\xslot_HCC1937_expt01_1250uLhr_z35um_mov_2_MMStack_Pos0.ome.tif"
 
-Q750_z40_mov_1_csv = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\MDAMC231_Q750_z40_mov01.csv"
-Q750_z40_mov_1_frame_dir = r"C:\Users\Sawyer\Downloads\OneDrive_2024-11-07\EV xslot data for CV\xslot_MDAMC231_750uLhr_z40um_mov_1_MMStack_Pos0.ome.tif"
+Q750_z40_mov_1_csv = r"data\EV xslot data for CV\Q750_z40_mov1_data\MDAMC231_Q750_z40_mov01.csv"
+Q750_z40_mov_1_frame_dir = r"data\EV xslot data for CV\Q750_z40_mov1_data\xslot_MDAMC231_750uLhr_z40um_mov_1_MMStack_Pos0.ome.tif"
 
 # Define the folder names you want to use for each dataset
 folder_names = [
