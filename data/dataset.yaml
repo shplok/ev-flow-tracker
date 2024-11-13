@@ -1,0 +1,6 @@
+path: ../data
+train: images  # training images
+val: images    # validation images
+
+nc: 2
+names: ['particle', 'background']  # class names
